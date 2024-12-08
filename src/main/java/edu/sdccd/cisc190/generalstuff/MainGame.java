@@ -1,6 +1,7 @@
 package edu.sdccd.cisc190.generalstuff;
 
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.stage.Stage;
 
 /**
@@ -32,7 +33,6 @@ import javafx.stage.Stage;
  * @see MainMenu
  * @see PreLude
  */
-
 public class MainGame extends Application {
 
     @Override
@@ -46,6 +46,32 @@ public class MainGame extends Application {
         primaryStage.setTitle("NightShift at Seven Guys (UNFINISHED VERSION)");
         primaryStage.setScene(titleScreen.getScene());
         primaryStage.show();
+
+        // Start a background thread for periodic updates
+        startBackgroundTimer();
+    }
+
+    /**
+     * Starts a background timer that updates the game state every specified interval.
+     */
+    private void startBackgroundTimer() {
+        new Thread(() -> {
+            try {
+                while (true) {
+                    // Simulate a periodic task by sleeping for 1 minute (60000 milliseconds)
+                    Thread.sleep(60000); // Update every minute
+
+                    // Update game state (e.g., check player status or time remaining)
+                    Platform.runLater(() -> {
+                        // Here we can update the UI or game state
+                        System.out.println("Updating game state...");
+                        // You can add more logic here, for example, updating a timer or checking conditions
+                    });
+                }
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }).start();
     }
 
     public static void main(String[] args) {

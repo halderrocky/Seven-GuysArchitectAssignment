@@ -1,5 +1,6 @@
 package edu.sdccd.cisc190.generalstuff;
 
+import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
@@ -29,18 +30,17 @@ import javafx.stage.Stage;
  *
  * @see PreLude
  */
-
 public class MainMenu {
     private final Scene scene;
     private int conviction; // stat for conviction
     private int madness;   // stat for madness
+    private final Text stats; // Text to display stats
 
     /**
      * Constructs a MainMenu object, initializing the menu's user interface components.
      *
      * @param primaryStage the primary stage for the JavaFX application
      */
-
     public MainMenu(Stage primaryStage) {
         conviction = 0;  // Initial conviction
         madness = 0;     // Initial madness
@@ -79,7 +79,7 @@ public class MainMenu {
         exitButton.setOnAction(e -> primaryStage.close());
 
         // Create a text element to display stats
-        Text stats = new Text("Conviction: " + conviction + " | Madness: " + madness);
+        stats = new Text("Conviction: " + conviction + " | Madness: " + madness);
         stats.setStyle("-fx-font-size: 14px; -fx-font-weight: bold;");
 
         // Create the BorderPane layout
@@ -98,13 +98,44 @@ public class MainMenu {
         // Align buttons to center within the bottom region
         BorderPane.setAlignment(buttonLayout, javafx.geometry.Pos.CENTER);
 
+        // Start background task to periodically update stats or perform actions
+        startBackgroundTask();
+
         // Create the scene with the BorderPane layout
         scene = new Scene(layout, 300, 400);
+    }
+
+    /**
+     * Starts a background task that updates game stats or performs actions periodically.
+     */
+    private void startBackgroundTask() {
+        new Thread(() -> {
+            try {
+                while (true) {
+                    // Sleep for 10 seconds before the next update
+                    Thread.sleep(10000);
+                    // Update stats or perform other actions
+                    Platform.runLater(() -> {
+                        // Simulate a stat change (e.g., increase madness slightly)
+                        madness += 1;
+                        updateStats();
+                    });
+                }
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }).start();
+    }
+
+    /**
+     * Updates the displayed stats in the UI.
+     */
+    private void updateStats() {
+        stats.setText("Conviction: " + conviction + " | Madness: " + madness);
     }
 
     // Getter for the scene
     public Scene getScene() {
         return scene;
     }
-
-    }
+}

@@ -36,7 +36,6 @@ public class TheFight {
         statsText.setStyle("-fx-font-size: 14px; -fx-font-weight: bold;");
 
         // Initialize the buttons
-
         oneButton = new Button("Attack");
         twoButton = new Button("Dodge");
         threeButton = new Button("Attack");
@@ -60,12 +59,19 @@ public class TheFight {
 
         // Button actions
         oneButton.setOnAction(e -> {
-            gameStatus.setText("He knows you’re going to attack, and he counter-attacked it.");
-            updateStats();  // Update the stats text
+            // If statement for determining the outcome of the attack
+            if (conviction > 5) {
+                gameStatus.setText("You attack with confidence! Rumble stumbles back and is momentarily stunned.");
+                madness -= 1; // Decrease madness due to successful attack
+            } else if (madness > 5) {
+                gameStatus.setText("Your madness clouds your judgment, and Rumble easily counters your attack.");
+                conviction -= 1; // Decrease conviction due to failed attack
+            } else {
+                gameStatus.setText("You attack, but it's not very effective. Rumble remains standing.");
+            }
+            updateStats(); // Update the stats text
 
-            // Show the additional choice buttons
-
-            // Hide the other buttons to focus on choices
+            // Show the continue button and hide other buttons
             continueButton.setVisible(true);
             hideOtherButtons();
         });
@@ -77,7 +83,6 @@ public class TheFight {
             updateStats();  // Update the stats text
 
             // Show the additional choice buttons
-            // Hide the other buttons to focus on choices
             threeButton.setVisible(true);
             fourButton.setVisible(true);
             hideOtherButtons();
@@ -119,7 +124,7 @@ public class TheFight {
         });
 
         sixButton.setOnAction(e -> {
-            gameStatus.setText("You were ready to attack the arm. Be he got a hold of you, and with that right arm, he attacked you.");
+            gameStatus.setText("You were ready to attack the arm, but he got a hold of you, and with that right arm, he attacked you.");
             updateStats();  // Update the stats text
 
             // Show the continue button and hide other buttons
@@ -138,7 +143,7 @@ public class TheFight {
         });
 
         eightButton.setOnAction(e -> {
-            gameStatus.setText("You tried to end him by stomping on him, but once again, it’s the arm, he counter-attacks you.");
+            gameStatus.setText("You tried to end him by stomping on him, but once again, it’s the arm, and he counter-attacks you.");
             updateStats();  // Update the stats text
 
             // Show the continue button and hide other buttons
@@ -179,7 +184,6 @@ public class TheFight {
     private void hideOtherButtons() {
         oneButton.setVisible(false);
         twoButton.setVisible(false);
-        // Hide oneButton and continueButton as needed
     }
 
     // Hide additional buttons when a choice is made

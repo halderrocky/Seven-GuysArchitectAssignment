@@ -1,12 +1,13 @@
 package edu.sdccd.cisc190.altscenes;
 
-import edu.sdccd.cisc190.generalstuff.ExitGame;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+
+import java.io.*;
 
 public class FiveAttackWater {
     private Scene scene;
@@ -20,10 +21,15 @@ public class FiveAttackWater {
     private final Button fourButton;
     private final Button fiveButton;
     private final Button sixButton;
-    private final Button sevenButton;
-    private final Button continueButton; // Text to display the stats
+    private Button continueButton = null;
+    private final String saveFileName = "game_data.txt"; // File name for saving game data
+
+    // Array to manage enemies in the game
+    private final String[] enemies = {"Mika the Monkey", "Ozzy the Ostrich", "Rumble the Raccoon"};
+    private final int[] enemyHealth = {100, 100, 100}; // Health points for each enemy
 
     public FiveAttackWater(Stage primaryStage) {
+        this.continueButton = continueButton;
         // Initial game status text
         gameStatus = new Text("You attacked Mika the Monkey by splashing water.\n" +
                 "It was effective, but you wasted 25% of the water and realized you have to conserve it.\n" +
@@ -37,91 +43,47 @@ public class FiveAttackWater {
         statsText.setStyle("-fx-font-size: 14px; -fx-font-weight: bold;");
 
         // Initialize the buttons
-
         oneButton = new Button("Attack with water (25% remaining)");
         twoButton = new Button("Dodge attack");
-        threeButton = new Button("Left");
-        fourButton = new Button("Middle");
-        fiveButton = new Button("Right");
-        sixButton = new Button("Continue");
-        sevenButton = new Button("Endings");
-        continueButton = new Button("Transition to 6 AM");
+        threeButton = new Button("Continue");
+        fourButton = new Button("View Enemies");
+        fiveButton = new Button("Save Game");
+        sixButton = new Button("Load Game");
 
-        // Set initial visibility of some buttons
-        threeButton.setVisible(false);
-        fourButton.setVisible(false);
-        fiveButton.setVisible(false);
-        sixButton.setVisible(false);
-        sevenButton.setVisible(false);
-        continueButton.setVisible(false);
+        // Load saved game data if available
+        loadGameData();
 
         // Button actions
         oneButton.setOnAction(e -> {
-            // Update game status text for the twoButton scenario
+            // Update game status text for the oneButton scenario
+            gameStatus.setText("You attacked with water successfully.");
+            conviction += 1; // Increase conviction
             updateStats();  // Update the stats text
-
-            // Show the additional choice buttons
-
-            // Hide the other buttons to focus on choices
-            sixButton.setVisible(true);
-            hideOtherButtons();
         });
 
         twoButton.setOnAction(e -> {
             // Update game status text for the twoButton scenario
-            gameStatus.setText("You slid under Ozzy the Ostrich and you ran as fast as you could, making your way out of the backstage and into the party area.\n" +
-                    "However, he’s chasing after you.\n" +
-                    "You see the party area and you see 3 rows that determine where you should go past.\n");
+            gameStatus.setText("You dodged Ozzy's attack and made a quick escape!");
+            madness -= 1; // Decrease madness
             updateStats();  // Update the stats text
-
-            // Show the additional choice buttons
-            threeButton.setVisible(true);
-            fourButton.setVisible(true);
-            fiveButton.setVisible(true);
-
-            // Hide the other buttons to focus on choices
-            hideOtherButtons();
         });
 
-        // Action for the threeButton
         threeButton.setOnAction(e -> {
-            gameStatus.setText("You successfully dodged Daniel the Dog’s attack. But Ozzy the Ostrich caught up to you.");
+            gameStatus.setText("You chose to continue your escape.");
             updateStats();  // Update the stats text
-
-            // Show the continue button and hide other buttons
-            continueButton.setVisible(true);
-            hideMoreButtons();
         });
 
-        // Action for the fourButton
         fourButton.setOnAction(e -> {
-            gameStatus.setText("You were attacked…");
-            updateStats();  // Update the stats text
-
-            // Show the continue button and hide other buttons
-            sevenButton.setVisible(true);
-            hideMoreButtons();
+            // Display enemies and their health
+            StringBuilder enemyStatus = new StringBuilder("Enemies:\n");
+            for (int i = 0; i < enemies.length; i++) {
+                enemyStatus.append(enemies[i]).append(" - Health: ").append(enemyHealth[i]).append("\n");
+            }
+            gameStatus.setText(enemyStatus.toString());
         });
 
-        // Action for the fiveButton
-        fiveButton.setOnAction(e -> {
-            gameStatus.setText("You successfully dodged Daniel the Dog’s attack and narrowly avoided Ozzy the Ostrich, as he’s catching up to you.\n" +
-                    "Both Daniel the Dog and Ozzy the Ostrich are chasing after you, and you realize that the office would leave you trapped.\n" +
-                    "So the best effort is to go to the kitchen and go to the alternative exit.\n" +
-                    "You go to the kitchen, and storm to the exit.\n" +
-                    "Both Daniel the Dog and Ozzy the Ostrich were narrowing in, and you used your water bottle to splash them.\n" +
-                    "You closed the door. It wasn’t 6 AM, but it didn't matter. You drove away.\n");
-            updateStats();  // Update the stats text
-
-            // Show the continue button and hide other buttons
-            continueButton.setVisible(true);
-            hideMoreButtons();
-        });
-
-        // Action for continueButton (transition to the next scene)
-        sixButton.setOnAction(e -> primaryStage.setScene(new FiveAttackWaterMore(primaryStage).getScene()));
-        sevenButton.setOnAction(e -> primaryStage.setScene(new ExitGame(primaryStage).getScene()));
-        continueButton.setOnAction(e -> primaryStage.setScene(new ExitGame(primaryStage).getScene()));
+        fiveButton.setOnAction(e -> saveGameData()); // Save game data
+        sixButton.setOnAction(e -> loadGameData()); // Load game data
 
         // Create the BorderPane layout
         BorderPane layout = new BorderPane();
@@ -134,7 +96,7 @@ public class FiveAttackWater {
 
         // Create a VBox to arrange buttons vertically
         VBox buttonBox = new VBox(10);  // 10px spacing between buttons
-        buttonBox.getChildren().addAll(oneButton, twoButton, threeButton, fourButton, fiveButton, sixButton, sevenButton, continueButton);
+        buttonBox.getChildren().addAll(oneButton, twoButton, threeButton, fourButton, fiveButton, sixButton);
 
         // Set the VBox containing buttons to the center of the BorderPane
         layout.setCenter(buttonBox);
@@ -146,20 +108,41 @@ public class FiveAttackWater {
     // Method to update the stats text
     private void updateStats() {
         statsText.setText("Conviction: " + conviction + " | Madness: " + madness);
+        // Optionally save game data after stats update
+        // saveGameData();
     }
 
-    // Hide the irrelevant buttons after the twoButton is pressed
-    private void hideOtherButtons() {
-        oneButton.setVisible(false);
-        twoButton.setVisible(false);
-        // Hide oneButton and continueButton as needed
+    // Method to save the player's stats and enemy health to a file
+    private void saveGameData() {
+        try (FileWriter writer = new FileWriter(saveFileName)) {
+            writer.write("Conviction:" + conviction + "\n");
+            writer.write("Madness:" + madness + "\n");
+            writer.write("Enemies:\n");
+            for (int i = 0; i < enemies.length; i++) {
+                writer.write(enemies[i] + ":" + enemyHealth[i] + "\n");
+            }
+        } catch (IOException e) {
+            gameStatus.setText("Error saving game data.");
+        }
     }
 
-    // Hide additional buttons when a choice is made
-    private void hideMoreButtons() {
-        threeButton.setVisible(false);
-        fourButton.setVisible(false);
-        fiveButton.setVisible(false);
+    // Method to load the player's stats and enemy health from a file
+    private void loadGameData() {
+        try (BufferedReader reader = new BufferedReader(new FileReader(saveFileName))) {
+            conviction = Integer.parseInt(reader.readLine().split(":")[1].trim());
+            madness = Integer.parseInt(reader.readLine().split(":")[1].trim());
+            reader.readLine(); // Skip the "Enemies:" line
+            for (int i = 0; i < enemies.length; i++) {
+                String line = reader.readLine();
+                String[] parts = line.split(":");
+                enemyHealth[i] = Integer.parseInt(parts[1].trim());
+            }
+            updateStats(); // Update the UI with loaded stats
+        } catch (IOException e) {
+            gameStatus.setText("No saved game data found, starting fresh.");
+        } catch (NumberFormatException e) {
+            gameStatus.setText("Error loading game data.");
+        }
     }
 
     // Getter for the scene

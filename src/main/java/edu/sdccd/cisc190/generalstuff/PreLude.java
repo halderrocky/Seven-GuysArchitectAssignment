@@ -1,6 +1,7 @@
 package edu.sdccd.cisc190.generalstuff;
 
 import edu.sdccd.cisc190.scenes.TwelveMorning;
+import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
@@ -27,12 +28,17 @@ import javafx.stage.Stage;
  *
  * @see TwelveMorning
  */
-
 public class PreLude {
     private Scene scene;
+    private final String[] playerItems = {"Flashlight", "Badge", "Water Bottle"}; // Array to store player items
+    private int conviction; // Player's conviction
+    private int madness;    // Player's madness
 
     // Constructor to accept conviction and madness
     public PreLude(Stage primaryStage, int conviction, int madness) {
+        this.conviction = conviction;
+        this.madness = madness;
+
         // Create the game status text
         Text gameStatus = new Text("What was that? Did the stat points that should be appearing on a “screen” increase. " +
                 "Apparently, everything you do is judge. Of Judgey devs. Huh what did we do-.\n" +
@@ -69,9 +75,40 @@ public class PreLude {
 
         // Create the scene with the layout and set the preferred size
         scene = new Scene(layout, 300, 400);
+
+        // Start a background task to monitor player stats
+        startBackgroundTask(statsText);
+    }
+
+    /**
+     * Starts a background task that periodically updates player stats.
+     *
+     * @param statsText the Text element displaying player stats
+     */
+    private void startBackgroundTask(Text statsText) {
+        new Thread(() -> {
+            try {
+                while (true) {
+                    // Sleep for 10 seconds before the next update
+                    Thread.sleep(10000); // Update every 10 seconds
+
+                    // Simulate stat changes
+                    conviction += 1; // Increase conviction over time
+                    madness += 1;    // Increase madness over time
+
+                    // Update the UI with new stats
+                    Platform.runLater(() -> {
+                        statsText.setText("Conviction: " + conviction + " | Madness: " + madness);
+                    });
+                }
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }).start();
     }
 
     public PreLude(Stage primaryStage) {
+        // Default constructor
     }
 
     // Getter for the scene
