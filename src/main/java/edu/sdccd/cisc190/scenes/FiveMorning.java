@@ -1,8 +1,7 @@
 package edu.sdccd.cisc190.scenes;
 
-import edu.sdccd.cisc190.altscenes.five1Morning;
+import edu.sdccd.cisc190.altscenes.Five1Morning;
 import edu.sdccd.cisc190.generalstuff.ExitGame;
-import edu.sdccd.cisc190.generalstuff.MainMenu;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
@@ -10,14 +9,14 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-public class fiveMorning {
+public class FiveMorning {
     private Scene scene;
     private int conviction; // Variable to track the conviction stat
     private int madness; // Variable to track the madness stat
     private final Text gameStatus;
     private final Text statsText;       // Text to display the stats
 
-    public fiveMorning(Stage primaryStage) {
+    public FiveMorning(Stage primaryStage) {
         // Initial game status text
         gameStatus = new Text("Numerous checks on the facility maps and notes from previous security guards left in the drawers, have informed you that the generators are inconveniently located on the Backstage, so you prepare your trip to get there.\n" +
                 "You get your flashlight out and prepare to go backstage.\n" +
@@ -47,7 +46,7 @@ public class fiveMorning {
 
         Button twoButton = new Button("Go to the Generator");
         twoButton.setStyle("-fx-font-size: 14px;");
-        twoButton.setOnAction(e -> primaryStage.setScene(new five1Morning(primaryStage).getScene()));
+        twoButton.setOnAction(e -> primaryStage.setScene(new Five1Morning(primaryStage).getScene()));
 
         // Create the BorderPane layout
         BorderPane layout = new BorderPane();

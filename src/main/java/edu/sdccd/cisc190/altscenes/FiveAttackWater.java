@@ -1,8 +1,6 @@
 package edu.sdccd.cisc190.altscenes;
 
 import edu.sdccd.cisc190.generalstuff.ExitGame;
-import edu.sdccd.cisc190.generalstuff.MainMenu;
-import edu.sdccd.cisc190.scenes.fiveMorning;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
@@ -10,9 +8,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-import javax.swing.*;
-
-public class fiveAttackWater {
+public class FiveAttackWater {
     private Scene scene;
     private int conviction; // Variable to track the conviction stat
     private int madness; // Variable to track the madness stat
@@ -27,7 +23,7 @@ public class fiveAttackWater {
     private final Button sevenButton;
     private final Button continueButton; // Text to display the stats
 
-    public fiveAttackWater(Stage primaryStage) {
+    public FiveAttackWater(Stage primaryStage) {
         // Initial game status text
         gameStatus = new Text("You attacked Mika the Monkey by splashing water.\n" +
                 "It was effective, but you wasted 25% of the water and realized you have to conserve it.\n" +
@@ -123,7 +119,7 @@ public class fiveAttackWater {
         });
 
         // Action for continueButton (transition to the next scene)
-        sixButton.setOnAction(e -> primaryStage.setScene(new fiveAttackWaterMore(primaryStage).getScene()));
+        sixButton.setOnAction(e -> primaryStage.setScene(new FiveAttackWaterMore(primaryStage).getScene()));
         sevenButton.setOnAction(e -> primaryStage.setScene(new ExitGame(primaryStage).getScene()));
         continueButton.setOnAction(e -> primaryStage.setScene(new ExitGame(primaryStage).getScene()));
 
@@ -169,5 +165,13 @@ public class fiveAttackWater {
     // Getter for the scene
     public Scene getScene() {
         return scene;
+    }
+
+    public int getConviction() {
+        return conviction;
+    }
+
+    public int getMadness() {
+        return madness;
     }
 }

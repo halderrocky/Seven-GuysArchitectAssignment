@@ -1,12 +1,32 @@
 package edu.sdccd.cisc190.generalstuff;
 
-import edu.sdccd.cisc190.scenes.twelveMorning;
+import edu.sdccd.cisc190.scenes.TwelveMorning;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+
+/**
+ * The PreLude class represents the introductory scene of the game "NightShift at Seven Guys".
+ * It initializes the game interface that introduces the player to their new office environment
+ * and displays their current conviction and madness statistics.
+ *
+ * <p>This class sets up the user interface elements, including the game status text, player stats,
+ * and an action button that leads to the next scene once clicked. The action button transitions
+ * the player to the {@link TwelveMorning} scene.</p>
+ *
+ * <p>Usage:</p>
+ * <pre>
+ * Stage primaryStage = new Stage();
+ * PreLude preludeScene = new PreLude(primaryStage, conviction, madness);
+ * primaryStage.setScene(preludeScene.getScene());
+ * primaryStage.show();
+ * </pre>
+ *
+ * @see TwelveMorning
+ */
 
 public class PreLude {
     private Scene scene;
@@ -32,7 +52,7 @@ public class PreLude {
         // Create the action button
         Button actionButton = new Button("Feeling a little 12AM?");
         actionButton.setStyle("-fx-font-size: 14px;");
-        actionButton.setOnAction(e -> primaryStage.setScene(new twelveMorning(primaryStage).getScene()));
+        actionButton.setOnAction(e -> primaryStage.setScene(new TwelveMorning(primaryStage).getScene()));
 
         // Set up the BorderPane layout
         BorderPane layout = new BorderPane();

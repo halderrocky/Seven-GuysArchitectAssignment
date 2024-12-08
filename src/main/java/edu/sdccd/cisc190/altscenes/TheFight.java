@@ -1,8 +1,6 @@
 package edu.sdccd.cisc190.altscenes;
 
 import edu.sdccd.cisc190.generalstuff.ExitGame;
-import edu.sdccd.cisc190.generalstuff.MainMenu;
-import edu.sdccd.cisc190.scenes.fiveMorning;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
@@ -10,9 +8,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-import javax.swing.*;
-
-public class theFight {
+public class TheFight {
     private Scene scene;
     private int conviction; // Variable to track the conviction stat
     private int madness; // Variable to track the madness stat
@@ -29,7 +25,7 @@ public class theFight {
     private final Button nineButton;
     private final Button continueButton; // Text to display the stats
 
-    public theFight(Stage primaryStage) {
+    public TheFight(Stage primaryStage) {
         // Initial game status text
         gameStatus = new Text("He wanted you to attack first, but Rumble decided to attack first, and you correctly dodged his attack.\n" +
                 "You know it’s a real fight. You arm yourself again. What’s your next move?");

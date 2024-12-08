@@ -2,7 +2,6 @@ package edu.sdccd.cisc190.altscenes;
 
 
 import edu.sdccd.cisc190.generalstuff.ExitGame;
-import edu.sdccd.cisc190.scenes.fiveMorning;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
@@ -11,7 +10,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 
-public class fiveDodge1 {
+public class FiveDodge1 {
     private Scene scene;
     private int conviction; // Variable to track the conviction stat
     private int madness; // Variable to track the madness stat
@@ -27,7 +26,7 @@ public class fiveDodge1 {
     private final Button continueButton;
 
 
-    public fiveDodge1(Stage primaryStage) {
+    public FiveDodge1(Stage primaryStage) {
         // Initial game status text
         gameStatus = new Text("Splashing Ozzy the Ostrich with water, allowed him to be disabled, although realizing the amount of water you have, meant that you had to conserve the water, as you only have 25% remaining.\n" +
                 "You ran to the main entrance/exit of the Seven Guys but realized something was wrong, the door wouldn’t budge.\n" +
@@ -98,7 +97,7 @@ public class fiveDodge1 {
             hideOtherButtons();
         });
         // Action for continueButton to change to next scene
-        fourButton.setOnAction(e -> primaryStage.setScene(new fiveAttackWater(primaryStage).getScene()));
+        fourButton.setOnAction(e -> primaryStage.setScene(new FiveAttackWater(primaryStage).getScene()));
         continueButton.setOnAction(e -> primaryStage.setScene(new ExitGame(primaryStage).getScene()));
 
 

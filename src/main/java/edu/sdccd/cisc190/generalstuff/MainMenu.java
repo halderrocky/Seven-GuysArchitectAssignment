@@ -7,10 +7,39 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+/**
+ * The MainMenu class represents the main menu scene of the game "NightShift at Seven Guys".
+ * This class sets up the user interface for the initial interaction with the player, allowing
+ * them to either unlock the door, which increases their conviction and madness stats, or exit
+ * the game entirely.
+ *
+ * <p>The MainMenu includes buttons for the player to make choices, a description of the game
+ * context, and displays the current conviction and madness statistics.</p>
+ *
+ * <p>Upon clicking the "Unlock the door" button, the game transitions to the PreLude scene,
+ * passing along the updated conviction and madness values.</p>
+ *
+ * <p>Usage:</p>
+ * <pre>
+ * Stage primaryStage = new Stage();
+ * MainMenu mainMenu = new MainMenu(primaryStage);
+ * primaryStage.setScene(mainMenu.getScene());
+ * primaryStage.show();
+ * </pre>
+ *
+ * @see PreLude
+ */
+
 public class MainMenu {
     private final Scene scene;
     private int conviction; // stat for conviction
     private int madness;   // stat for madness
+
+    /**
+     * Constructs a MainMenu object, initializing the menu's user interface components.
+     *
+     * @param primaryStage the primary stage for the JavaFX application
+     */
 
     public MainMenu(Stage primaryStage) {
         conviction = 0;  // Initial conviction
@@ -77,4 +106,5 @@ public class MainMenu {
     public Scene getScene() {
         return scene;
     }
-}
+
+    }

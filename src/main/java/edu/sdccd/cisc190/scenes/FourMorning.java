@@ -7,7 +7,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-public class fourMorning {
+public class FourMorning {
     private Scene scene;
     private int conviction; // Variable to track the conviction stat
     private int madness; // Variable to track the madness stat
@@ -26,7 +26,7 @@ public class fourMorning {
     private final Button nineButton;
     private final Button continueButton;
 
-    public fourMorning(Stage primaryStage) {
+    public FourMorning(Stage primaryStage) {
         // Initial game status text
         gameStatus = new Text("Back in your room, SCAM, running in the back.\n" +
                 "With your better judgment, you close the doors, leaving to drain you of your precious power.\n" +
@@ -210,7 +210,7 @@ public class fourMorning {
         });
 
         // Action for continueButton to change to next scene
-        continueButton.setOnAction(e -> primaryStage.setScene(new fiveMorning(primaryStage).getScene()));
+        continueButton.setOnAction(e -> primaryStage.setScene(new FiveMorning(primaryStage).getScene()));
 
         // Create the BorderPane layout
         BorderPane layout = new BorderPane();

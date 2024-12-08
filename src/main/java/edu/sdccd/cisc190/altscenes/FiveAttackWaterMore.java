@@ -1,8 +1,6 @@
 package edu.sdccd.cisc190.altscenes;
 
 import edu.sdccd.cisc190.generalstuff.ExitGame;
-import edu.sdccd.cisc190.generalstuff.MainMenu;
-import edu.sdccd.cisc190.scenes.fiveMorning;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
@@ -10,9 +8,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-import javax.swing.*;
-
-public class fiveAttackWaterMore {
+public class FiveAttackWaterMore {
     private Scene scene;
     private int conviction; // Variable to track the conviction stat
     private int madness; // Variable to track the madness stat
@@ -28,7 +24,7 @@ public class fiveAttackWaterMore {
     private final Button eightButton;
     private final Button continueButton; // Text to display the stats
 
-    public fiveAttackWaterMore(Stage primaryStage) {
+    public FiveAttackWaterMore(Stage primaryStage) {
         // Initial game status text
         gameStatus = new Text("You know that you conserved your water usage, yet decided to attack with water. You wasted 10% of the water on Ozzy the Ostrich; although barely functioning, you’ve at least disabled his ability to move fast.\n" +
                 "You got out of the backstage and into the party area.\n" +
@@ -136,7 +132,7 @@ public class fiveAttackWaterMore {
 
         // Action for continueButton (transition to the next scene)
         sevenButton.setOnAction(e -> primaryStage.setScene(new ExitGame(primaryStage).getScene()));
-        eightButton.setOnAction(e -> primaryStage.setScene(new theFight(primaryStage).getScene()));
+        eightButton.setOnAction(e -> primaryStage.setScene(new TheFight(primaryStage).getScene()));
         continueButton.setOnAction(e -> primaryStage.setScene(new ExitGame(primaryStage).getScene()));
 
         // Create the BorderPane layout

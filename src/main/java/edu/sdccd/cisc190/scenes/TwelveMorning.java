@@ -7,7 +7,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-public class twelveMorning {
+public class TwelveMorning {
     private final Scene scene;
     private int conviction = 0;   // Variable to track the conviction stat
     private int madness = 0;      // Variable to track the madness stat
@@ -20,7 +20,7 @@ public class twelveMorning {
     private final Button threeButton;
     private final Button continueButton;
 
-    public twelveMorning(Stage primaryStage) {
+    public TwelveMorning(Stage primaryStage) {
         // Initial game status text
         gameStatus = new Text("You've been sitting in your office, playing Brawl Stars, " +
                 "ignoring any work because there’s nothing to do besides staring at the ceiling, " +
@@ -85,7 +85,7 @@ public class twelveMorning {
         });
 
         // Action for continueButton to change to next scene
-        continueButton.setOnAction(e -> primaryStage.setScene(new oneMorning(primaryStage).getScene()));
+        continueButton.setOnAction(e -> primaryStage.setScene(new OneMorning(primaryStage).getScene()));
 
         // Create the BorderPane layout
         BorderPane layout = new BorderPane();
