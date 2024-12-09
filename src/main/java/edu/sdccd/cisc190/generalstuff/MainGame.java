@@ -45,6 +45,11 @@ public class MainGame extends Application {
         // Set the title screen as the initial scene
         primaryStage.setTitle("NightShift at Seven Guys (UNFINISHED VERSION)");
         primaryStage.setScene(titleScreen.getScene());
+
+        // Set the stage to full screen
+        primaryStage.setFullScreen(true);
+        primaryStage.setFullScreenExitHint("Press ESC to exit full screen."); // Optional hint
+
         primaryStage.show();
 
         // Start a background thread for periodic updates

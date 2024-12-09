@@ -12,7 +12,7 @@ public class Five1Morning {
     private int conviction; // Variable to track the conviction stat
     private int madness; // Variable to track the madness stat
     private final Text gameStatus;
-    private final Text statsText;       // Text to display the stats
+    private final Text statsText; // Text to display the stats
 
     public Five1Morning(Stage primaryStage) {
         // Initial game status text
@@ -26,17 +26,34 @@ public class Five1Morning {
         // Text for displaying stats (conviction and madness)
         statsText = new Text("Conviction: " + conviction + " | Madness: " + madness);
         statsText.setStyle("-fx-font-size: 14px; -fx-font-weight: bold;");
+
         // Button actions
         Button oneButton = new Button("Attack with a water bottle (50% remaining)");
         conviction++;
         oneButton.setStyle("-fx-font-size: 14px;");
-        oneButton.setOnAction(e -> gameStatus.setText(""));
-        oneButton.setOnAction(e -> primaryStage.setScene(new FiveAttackWater(primaryStage).getScene()));
+        oneButton.setOnAction(e -> {
+            if (madness < 5) {
+                gameStatus.setText("You attack with confidence! Mika is stunned.");
+                conviction += 1; // Increase conviction
+            } else {
+                gameStatus.setText("Your madness clouds your judgment, and you miss your attack!");
+                madness++; // Increase madness
+            }
+            updateStats();
+        });
 
         Button twoButton = new Button("Dodge attack");
         madness++;
         twoButton.setStyle("-fx-font-size: 14px;");
-        twoButton.setOnAction(e -> primaryStage.setScene(new FiveDodge(primaryStage).getScene()));
+        twoButton.setOnAction(e -> {
+            if (conviction > 2) {
+                gameStatus.setText("You successfully dodge Mika's attack!");
+                conviction--; // Decrease conviction as a cost of dodging
+            } else {
+                gameStatus.setText("You are too unstable to dodge effectively!");
+            }
+            updateStats();
+        });
 
         // Create the BorderPane layout
         BorderPane layout = new BorderPane();
@@ -69,10 +86,10 @@ public class Five1Morning {
     }
 
     public int getConviction() {
-        return 0;
+        return conviction;
     }
 
     public int getMadness() {
-        return 1;
+        return madness;
     }
 }

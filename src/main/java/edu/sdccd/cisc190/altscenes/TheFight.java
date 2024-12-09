@@ -8,6 +8,11 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+/**
+ * TheFight class handles the fight sequence in the game, allowing players to attack or dodge
+ * against enemies. It tracks player stats like conviction and madness and updates the game UI
+ * based on player actions.
+ */
 public class TheFight {
     private Scene scene;
     private int conviction; // Variable to track the conviction stat
@@ -23,7 +28,7 @@ public class TheFight {
     private final Button sevenButton;
     private final Button eightButton;
     private final Button nineButton;
-    private final Button continueButton; // Text to display the stats
+    private final Button continueButton;
 
     public TheFight(Stage primaryStage) {
         // Initial game status text
@@ -59,15 +64,10 @@ public class TheFight {
 
         // Button actions
         oneButton.setOnAction(e -> {
-            // If statement for determining the outcome of the attack
-            if (conviction > 5) {
-                gameStatus.setText("You attack with confidence! Rumble stumbles back and is momentarily stunned.");
-                madness -= 1; // Decrease madness due to successful attack
-            } else if (madness > 5) {
-                gameStatus.setText("Your madness clouds your judgment, and Rumble easily counters your attack.");
-                conviction -= 1; // Decrease conviction due to failed attack
-            } else {
-                gameStatus.setText("You attack, but it's not very effective. Rumble remains standing.");
+            try {
+                handleAttack();
+            } catch (IllegalArgumentException ex) {
+                gameStatus.setText(ex.getMessage()); // Display error message
             }
             updateStats(); // Update the stats text
 
@@ -90,9 +90,14 @@ public class TheFight {
 
         // Action for the threeButton
         threeButton.setOnAction(e -> {
-            gameStatus.setText("Rumble now thinks you’re going to dodge.\n" +
-                    "So he rushes towards you, but you attack him by landing a punch on his jaw.\n" +
-                    "Bits of pieces fell off him.");
+            try {
+                handleAttack();
+                gameStatus.setText("Rumble now thinks you’re going to dodge.\n" +
+                        "So he rushes towards you, but you attack him by landing a punch on his jaw.\n" +
+                        "Bits of pieces fell off him.");
+            } catch (IllegalArgumentException ex) {
+                gameStatus.setText(ex.getMessage()); // Display error message
+            }
             updateStats();  // Update the stats text
 
             // Show the continue button and hide other buttons
@@ -173,6 +178,18 @@ public class TheFight {
 
         // Scene creation with appropriate size
         scene = new Scene(layout, 400, 400);
+    }
+
+    // Method to handle attacking
+    private void handleAttack() {
+        if (conviction > 5) {
+            gameStatus.setText("You attack with confidence! Rumble stumbles back and is momentarily stunned.");
+            madness -= 1; // Decrease madness due to successful attack
+        } else if (madness > 5) {
+            throw new IllegalArgumentException("Your madness clouds your judgment, and Rumble easily counters your attack.");
+        } else {
+            throw new IllegalArgumentException("You attack, but it's not very effective. Rumble remains standing.");
+        }
     }
 
     // Method to update the stats text
