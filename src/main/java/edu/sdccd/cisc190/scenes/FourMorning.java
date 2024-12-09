@@ -7,6 +7,37 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+/**
+ * The `FourMorning` class represents a scene in a game where the player navigates
+ * through various choices and encounters at 4 AM. This class includes logic for updating
+ * game states, managing player actions, and transitioning to subsequent scenes.
+ *
+ * <p>The scene features a textual description of the game's current situation,
+ * player statistics (Conviction and Madness), and multiple button choices that allow
+ * the player to explore the environment or make decisions affecting the storyline.</p>
+ *
+ * <h2>Features:</h2>
+ * <ul>
+ *     <li>Dynamic game status text that changes based on player choices.</li>
+ *     <li>Buttons for multiple actions, including investigating noises, choosing food,
+ *     and transitioning to the next game hour.</li>
+ *     <li>Stat tracking for Conviction and Madness, updated in response to gameplay actions.</li>
+ *     <li>Visibility management for buttons to streamline the player's experience.</li>
+ * </ul>
+ *
+ * <h2>Usage:</h2>
+ * <pre>
+ * Stage primaryStage = new Stage();
+ * FourMorning fourMorningScene = new FourMorning(primaryStage);
+ * primaryStage.setScene(fourMorningScene.getScene());
+ * primaryStage.show();
+ * </pre>
+ *
+ * <h2>Dependencies:</h2>
+ * This class requires `javafx.scene` components such as `Scene`, `Button`, `Text`, and `Stage`.
+ * It also interacts with the `FiveMorning` class to transition to the next scene.
+ */
+
 public class FourMorning {
     private Scene scene;
     private int conviction; // Variable to track the conviction stat
@@ -27,6 +58,8 @@ public class FourMorning {
     private final Button continueButton;
 
     public FourMorning(Stage primaryStage) {
+        this.conviction = conviction;
+        this.madness = madness;
         // Initial game status text
         gameStatus = new Text("Back in your room, SCAM, running in the back.\n" +
                 "With your better judgment, you close the doors, leaving to drain you of your precious power.\n" +

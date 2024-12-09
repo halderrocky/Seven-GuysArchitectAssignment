@@ -9,6 +9,13 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+/**
+ * Provides the implementation for the main title screen and exit confirmation logic
+ * in the application "The NightShift at SevenGuys". This package includes:
+ * - `TitleScreen`: Displays the main title screen with a transition to the main menu.
+ * - `ExitGame`: Handles the exit confirmation functionality for safely quitting the game.
+ */
+
 public class ExitGame {
 
     private Scene scene;

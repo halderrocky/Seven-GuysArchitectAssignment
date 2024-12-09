@@ -31,6 +31,7 @@ public class TheFight {
     private final Button continueButton;
 
     public TheFight(Stage primaryStage) {
+        this.conviction = conviction;
         // Initial game status text
         gameStatus = new Text("He wanted you to attack first, but Rumble decided to attack first, and you correctly dodged his attack.\n" +
                 "You know it’s a real fight. You arm yourself again. What’s your next move?");

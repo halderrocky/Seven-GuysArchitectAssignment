@@ -9,6 +9,10 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+/**
+ * The FiveDodge1 class manages the gameplay mechanics for dodging in the game,
+ * allowing players to make decisions that affect their stats.
+ */
 
 public class FiveDodge1 {
     private Scene scene;
@@ -26,7 +30,9 @@ public class FiveDodge1 {
     private final Button continueButton;
 
 
-    public FiveDodge1(Stage primaryStage) {
+    public FiveDodge1(Stage primaryStage, int conviction, int madness) {
+        this.conviction = conviction;
+        this.madness = madness;
         // Initial game status text
         gameStatus = new Text("Splashing Ozzy the Ostrich with water, allowed him to be disabled, although realizing the amount of water you have, meant that you had to conserve the water, as you only have 25% remaining.\n" +
                 "You ran to the main entrance/exit of the Seven Guys but realized something was wrong, the door wouldn’t budge.\n" +
@@ -128,6 +134,9 @@ public class FiveDodge1 {
 
 
     // Method to update the stats text
+    /**
+     * Updates the player's stats display.
+     */
     private void updateStats() {
         statsText.setText("Conviction: " + conviction + " | Madness: " + madness);
     }
@@ -142,6 +151,11 @@ public class FiveDodge1 {
 
 
     // Getter for the scene
+    /**
+     * Gets the current scene.
+     *
+     * @return the Scene object representing the current scene
+     */
     public Scene getScene() {
         return scene;
     }

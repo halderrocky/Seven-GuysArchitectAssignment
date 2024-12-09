@@ -7,6 +7,11 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+/**
+ * The Five1Morning class handles the morning sequence in the game, allowing players to interact
+ * with the environment and make decisions that will affect their gameplay.
+ */
+
 public class Five1Morning {
     private Scene scene;
     private int conviction; // Variable to track the conviction stat
@@ -76,11 +81,20 @@ public class Five1Morning {
     }
 
     // Method to update the stats text
+    /**
+     * Updates the player's stats based on actions taken.
+     */
     private void updateStats() {
         statsText.setText("Conviction: " + conviction + " | Madness: " + madness);
     }
 
     // Getter for the scene
+    /**
+     * Gets the current scene, conviction, and madness
+     *
+     * @return the Scene object representing the current scene
+     */
+
     public Scene getScene() {
         return scene;
     }

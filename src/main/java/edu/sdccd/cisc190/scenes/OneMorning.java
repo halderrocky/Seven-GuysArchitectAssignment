@@ -7,6 +7,12 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+/**
+ * The OneMorning class represents a scene in a game where the player makes choices
+ * that affect their conviction and madness stats. It handles the game's narrative,
+ * button actions, and updates the game state based on the player's choices.
+ */
+
 public class OneMorning {
     private Scene scene;
     private int conviction; // Variable to track the conviction stat

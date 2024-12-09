@@ -7,6 +7,22 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+/**
+ * The TwelveMorning class represents the initial scene of a game, where players make choices
+ * that influence their Conviction and Madness stats. It uses the JavaFX framework to create
+ * an interactive game interface.
+ *
+ * <p>This class manages the display of game status, stats, and interactive buttons to choose
+ * different actions. Each action modifies the stats and progresses the game to subsequent scenes.
+ * </p>
+ *
+ * <p>Actions include checking cameras, ignoring tasks, or leaving the workplace, each
+ * having distinct outcomes and effects on the Conviction and Madness stats.
+ * </p>
+ *
+ * @author RockyHalder
+ */
+
 public class TwelveMorning {
     private final Scene scene;
     private int conviction = 0;   // Variable to track the conviction stat

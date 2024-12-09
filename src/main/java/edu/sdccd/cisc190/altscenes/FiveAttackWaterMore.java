@@ -8,6 +8,11 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+/**
+ * The FiveAttackWaterMore class manages the player's actions after the water attack sequence,
+ * allowing for further interactions and decision-making.
+ */
+
 public class FiveAttackWaterMore {
     private Scene scene;
     private int conviction; // Variable to track the conviction stat
@@ -24,7 +29,9 @@ public class FiveAttackWaterMore {
     private final Button eightButton;
     private final Button continueButton; // Text to display the stats
 
-    public FiveAttackWaterMore(Stage primaryStage) {
+    public FiveAttackWaterMore(Stage primaryStage, int conviction, int madness) {
+        this.conviction = conviction;
+        this.madness = madness;
         // Initial game status text
         gameStatus = new Text("You know that you conserved your water usage, yet decided to attack with water. You wasted 10% of the water on Ozzy the Ostrich; although barely functioning, you’ve at least disabled his ability to move fast.\n" +
                 "You got out of the backstage and into the party area.\n" +
@@ -156,6 +163,9 @@ public class FiveAttackWaterMore {
     }
 
     // Method to update the stats text
+    /**
+     * Updates the player's stats display.
+     */
     private void updateStats() {
         statsText.setText("Conviction: " + conviction + " | Madness: " + madness);
     }
@@ -176,6 +186,11 @@ public class FiveAttackWaterMore {
     }
 
     // Getter for the scene
+    /**
+     * Gets the current scene.
+     *
+     * @return the Scene object representing the current scene
+     */
     public Scene getScene() {
         return scene;
     }

@@ -6,6 +6,11 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+/**
+ * The `TitleScreen` class displays the main title screen of the application,
+ * including a title text and a button to transition to the main menu.
+ */
+
 public class TitleScreen {
     private final Scene scene;
 

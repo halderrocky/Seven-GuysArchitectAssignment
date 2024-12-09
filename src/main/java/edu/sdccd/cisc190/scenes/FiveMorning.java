@@ -9,6 +9,21 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+/**
+ * The `FiveMorning` class represents a scene in the game where the player must navigate
+ * a challenging and eerie situation in the backstage area of the facility. This class
+ * incorporates narrative progression, user choices, and updates to the player's stats
+ * (conviction and madness).
+ *
+ * <p>Features:
+ * <ul>
+ *     <li>Displays a descriptive narrative of the game's current scenario.</li>
+ *     <li>Includes player options to either investigate or proceed to the generator,
+ *         which influence the game's flow.</li>
+ *     <li>Tracks and displays the player's current conviction and madness stats.</li>
+ * </ul>
+ */
+
 public class FiveMorning {
     private Scene scene;
     private int conviction; // Variable to track the conviction stat
@@ -17,6 +32,8 @@ public class FiveMorning {
     private final Text statsText;       // Text to display the stats
 
     public FiveMorning(Stage primaryStage) {
+        this.conviction = conviction;
+        this.madness = madness;
         // Initial game status text
         gameStatus = new Text("Numerous checks on the facility maps and notes from previous security guards left in the drawers, have informed you that the generators are inconveniently located on the Backstage, so you prepare your trip to get there.\n" +
                 "You get your flashlight out and prepare to go backstage.\n" +
