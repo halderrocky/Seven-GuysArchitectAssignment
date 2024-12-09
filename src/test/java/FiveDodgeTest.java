@@ -1,68 +1,80 @@
 import edu.sdccd.cisc190.altscenes.FiveDodge;
+import javafx.application.Platform;
 import javafx.stage.Stage;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.JUnit4;
 
 import static org.junit.Assert.assertEquals;
 
+@RunWith(JUnit4.class) // This may not be necessary if you're using a standard runner
 public class FiveDodgeTest {
     private FiveDodge fiveDodge;
 
+    private static final int INITIAL_CONVICTION = 0;
+    private static final int INITIAL_MADNESS = 0;
+    private static final int HIGH_MADNESS_THRESHOLD = 8;
+
     @Before
     public void setUp() {
-        Stage stage = new Stage(); // Mock Stage for testing
-        fiveDodge = new FiveDodge(stage); // Create an instance of FiveDodge
+        Platform.runLater(() -> {
+            Stage stage = new Stage(); // Mock Stage for testing
+            fiveDodge = new FiveDodge(stage); // Create an instance of FiveDodge
+            fiveDodge.setConviction(INITIAL_CONVICTION);
+            fiveDodge.setMadness(INITIAL_MADNESS);
+        });
+
+        // Wait for JavaFX to initialize the stage and the fiveDodge object
+        try {
+            Thread.sleep(100); // Add a small delay to ensure JavaFX initializes
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
     }
 
     @Test
     public void testInitialStats() {
-        // Check initial conviction and madness
-        assertEquals(0, fiveDodge.getConviction());
-        assertEquals(0, fiveDodge.getMadness());
+        Platform.runLater(() -> {
+            assertEquals(INITIAL_CONVICTION, fiveDodge.getConviction());
+            assertEquals(INITIAL_MADNESS, fiveDodge.getMadness());
+        });
     }
 
     @Test
     public void testAttackWithWaterBottle() {
-        // Simulate the player attacking with the water bottle
-        fiveDodge.attackWithWaterBottle();
-
-        // Check the updated stats
-        assertEquals(1, fiveDodge.getConviction());
-        assertEquals(-1, fiveDodge.getMadness()); // Assuming you decrement madness for a successful attack
+        Platform.runLater(() -> {
+            fiveDodge.attackWithWaterBottle();
+            assertEquals(1, fiveDodge.getConviction());
+            assertEquals(-1, fiveDodge.getMadness()); // Verify decrement
+        });
     }
 
     @Test
     public void testDodgeAttack() {
-        // Simulate the player dodging an attack
-        fiveDodge.dodgeAttack();
-
-        // Check the updated stats
-        assertEquals(1, fiveDodge.getConviction());
-        assertEquals(0, fiveDodge.getMadness()); // Assuming dodging does not affect madness
+        Platform.runLater(() -> {
+            fiveDodge.dodgeAttack();
+            assertEquals(1, fiveDodge.getConviction());
+            assertEquals(0, fiveDodge.getMadness()); // Verify no change
+        });
     }
 
     @Test
     public void testMadnessThreshold() {
-        // Set madness to a high value
-        fiveDodge.setMadness(8); // Assuming a setter exists for test purposes
-
-        // Try dodging when madness is too high
-        fiveDodge.dodgeAttack();
-
-        // Verify that the madness increased
-        assertEquals(8, fiveDodge.getMadness()); // Should remain the same due to failed dodge
+        Platform.runLater(() -> {
+            fiveDodge.setMadness(HIGH_MADNESS_THRESHOLD);
+            fiveDodge.dodgeAttack();
+            assertEquals(HIGH_MADNESS_THRESHOLD, fiveDodge.getMadness()); // Check no change
+        });
     }
 
     @Test
     public void testSaveLoadGameData() {
-        // Simulate saving game data
-        fiveDodge.saveGameData();
-
-        // Simulate loading game data
-        fiveDodge.loadGameData();
-
-        // Check if stats are correctly loaded
-        assertEquals(1, fiveDodge.getConviction()); // Change according to your test case
-        assertEquals(0, fiveDodge.getMadness()); // Change according to your test case
+        Platform.runLater(() -> {
+            fiveDodge.saveGameData();
+            fiveDodge.loadGameData();
+            assertEquals(1, fiveDodge.getConviction()); // Assuming conviction should be 1 after loading
+            assertEquals(0, fiveDodge.getMadness()); // Assuming madness should be 0 after loading
+        });
     }
 }

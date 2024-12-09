@@ -154,4 +154,8 @@ public class FiveDodge {
     public int getMadness() {
         return madness;
     }
+
+    public void setConviction(int conviction) {
+        this.conviction = conviction;
+    }
 }
